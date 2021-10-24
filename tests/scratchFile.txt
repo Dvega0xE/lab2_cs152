@@ -1,5 +1,6 @@
 function main;
 beginparams
+  p : integer
 endparams
 
 beginlocals
@@ -11,4 +12,11 @@ beginlocals
 endlocals
 
 beginbody	## main program
+
+  if true or true then
+    continue;
+  else
+    continue;
+  endif
+
 endbody

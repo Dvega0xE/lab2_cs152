@@ -107,7 +107,6 @@ bstatements:	statement SEMICOLON bstatements {printf("bstatements -> statement S
 statement1:	var ASSIGN expression {printf("statement1 -> var ASSIGN expression \n");}
 ;
 statement2:	IF bool_expr THEN statement_loop2 {printf("statement2 -> IF bool_expr THEN statement_loop2 \n");}
-		| ELSE statement_loop2b {printf("statement2 -> ELSE statement_loop2b ENDIF \n");}
 ;
 statement_loop2: statement SEMICOLON statement_loop2 {printf("statement_loop2 -> statement SEMICOLON statement_loop2 \n");}
 		| statement SEMICOLON ELSE statement_loop2b {printf("statement_loop2 -> statement SEMICOLON ELSE statement_loop2b \n");}
@@ -149,10 +148,10 @@ statement:	statement1 {printf("statement -> statement1 \n");}
 		| statement8 {printf("statement -> statement8 \n");}
 ;
 bool_expr:	relation_and_expr OR relation_and_expr {printf("bool_expr -> relation_and_expr OR relation_and_expr \n");}
-		| {printf("bool_expr -> epsilon \n");} /*epsilon*/
+		| relation_and_expr {printf("bool_expr -> relation_and_expr \n");}
 ;
 relation_and_expr:	relation_expr AND relation_expr {printf("relation_and_expr -> relation_expr AND relation_expr \n");}
-			| {printf("relation_and_expr -> epsilon \n");} /*epsilon*/
+			| relation_expr {printf("relation_and_expr -> relation_expr \n");}
 ;
 relation_expr:	NOT relation_exprS {printf("relation_expr -> NOT relation_exprS \n");}
 		| relation_exprS {printf("relation_expr -> relation_exprS \n");}
