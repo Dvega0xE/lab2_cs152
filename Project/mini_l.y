@@ -106,12 +106,27 @@ bstatements:	statement SEMICOLON bstatements {printf("bstatements -> statement S
 
 statement1:	var ASSIGN expression {printf("statement1 -> var ASSIGN expression \n");}
 ;
-statement2:	IF bool_expr THEN statement_loop {printf("statement2 -> IF bool_expr THEN statement_loop \n");}
-		| ELSE statement_loop ENDIF {printf("statement2 -> ELSE statement_loop ENDIF \n");}
+statement2:	IF bool_expr THEN statement_loop2 {printf("statement2 -> IF bool_expr THEN statement_loop2 \n");}
+		| ELSE statement_loop2b {printf("statement2 -> ELSE statement_loop2b ENDIF \n");}
 ;
-statement3:	WHILE bool_expr BEGINLOOP statement_loop ENDLOOP {printf("statement3 -> WHILE bool_expr BEGINLOOP statement_loop ENDLOOP \n");}
+statement_loop2: statement SEMICOLON statement_loop2 {printf("statement_loop2 -> statement SEMICOLON statement_loop2 \n");}
+		| statement SEMICOLON ELSE statement_loop2b {printf("statement_loop2 -> statement SEMICOLON ELSE statement_loop2b \n");}
+		|  statement SEMICOLON ENDIF {printf("statement_loop2 -> statement SEMICOLON ENDIF \n");}
 ;
-statement4:	DO BEGINLOOP statement_loop ENDLOOP WHILE bool_expr {printf("statement4 -> DO BEGINLOOP statement_loop ENDLOOP WHILE bool_expr \n");}
+statement_loop2b: statement SEMICOLON statement_loop2b {printf("statement_loop2b -> statement SEMICOLON statement_loop2b \n");}
+		| statement SEMICOLON ENDIF {printf("statement_loop2b -> statement SEMICOLON ENDIF \n");}
+;
+
+statement3:	WHILE bool_expr BEGINLOOP statement_loop3 {printf("statement3 -> WHILE bool_expr BEGINLOOP statement_loop \n");}
+;
+statement_loop3: statement SEMICOLON statement_loop3 {printf("statement_loop3 -> statement SEMICOLON statement_loop3 \n");}
+		 | statement SEMICOLON ENDLOOP {printf("statement_loop3 -> statement SEMICOLON ENDLOOP \n");}
+;
+
+statement4:	DO BEGINLOOP statement_loop4 {printf("statement4 -> DO BEGINLOOP statement_loop4 \n");}
+;
+statement_loop4: statement SEMICOLON statement_loop4 {printf("statement_loop4 -> statement SEMICOLON statement_loop4 \n");}
+		 | statement SEMICOLON ENDLOOP WHILE bool_expr {printf("statement_loop4 -> statement SEMICOLON ENDLOOP WHILE bool_expr \n");}
 ;
 statement5:	READ var_loop {printf("statement5 -> READ var_loop \n");}
 ;
@@ -124,14 +139,14 @@ statement7:	CONTINUE {printf("statement7 -> CONTINUE \n");}
 ;
 statement8:	RETURN expression {printf("statement8 -> RETURN expression \n");}
 ;
-statement:	statement1 
-		| statement2
-		| statement3
-		| statement4
-		| statement5
-		| statement6
-		| statement7
-		| statement8
+statement:	statement1 {printf("statement -> statement1 \n");}
+		| statement2 {printf("statement -> statement2 \n");}
+		| statement3 {printf("statement -> statement3 \n");}
+		| statement4 {printf("statement -> statement4 \n");}
+		| statement5 {printf("statement -> statement5 \n");}
+		| statement6 {printf("statement -> statement6 \n");}
+		| statement7 {printf("statement -> statement7 \n");}
+		| statement8 {printf("statement -> statement8 \n");}
 ;
 bool_expr:	relation_and_expr OR relation_and_expr {printf("bool_expr -> relation_and_expr OR relation_and_expr \n");}
 		| {printf("bool_expr -> epsilon \n");} /*epsilon*/

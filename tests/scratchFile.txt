@@ -1,0 +1,14 @@
+function main;
+beginparams
+endparams
+
+beginlocals
+
+  n : integer;
+  i, j, k: integer;
+  t : array [20] of integer;
+
+endlocals
+
+beginbody	## main program
+endbody
