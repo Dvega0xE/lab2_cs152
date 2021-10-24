@@ -1,5 +1,10 @@
 %{
+<<<<<<< HEAD
 
+=======
+    #include <string>
+    #include "y.tab.h"
+>>>>>>> ba8ffe30d61933be59b7939f57c675aa3623f1cb
     int currentLine = 1;        /* Setup Line and Depth tracking variables */
     int currentColumn = 0;
 %}
