@@ -1,0 +1,6 @@
+.idea
+lex.yy.c
+y.tab.c
+y.tab.h
+output y
+parser
