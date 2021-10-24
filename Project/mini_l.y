@@ -2,7 +2,8 @@
 %{
 #include "includes.h"
 #include <stdlib.h>
-#define YYSTYPE string
+#define YYPARSE_PARAM scanner
+#define YYLEX_PARAM   scanner
 void yyerror(const char* s);
 int yylex(void);
 
@@ -12,14 +13,15 @@ int yylex(void);
 /*Bison Declarations*/
 %union{
 	int num;
-	char *stringValue;
+	char* aString;
 }
 
 %error-verbose
 %start declaration
 
-%token <int_val> NUMBER
+%token <num> NUMBER
 %token IDENTIFIER
+%type  <aString> IDENTIFIER
 
 %token FUNCTION
 %token BEGIN_PARAMS
@@ -73,6 +75,7 @@ int yylex(void);
 
 /* Types */
 
+
 %%
 /*Grammar Rules*/
 declaration: 	identifiers COLON INTEGER {printf("declaration -> identifiers COLON INTEGER \n");}
@@ -82,7 +85,7 @@ declaration: 	identifiers COLON INTEGER {printf("declaration -> identifiers COLO
 identifiers:	ident COMMA identifiers {printf("identifiers -> ident COMMA identifiers \n");}
 		| ident {printf("identifiers -> ident\n");}
 ;
-ident:		IDENTIFIER {$$; printf("ident -> IDENT \n");}
+ident:		IDENTIFIER {printf("ident -> IDENT %s\n", $1);}
 ;
 
 
