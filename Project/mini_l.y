@@ -17,7 +17,7 @@ int yylex(void);
 }
 
 %error-verbose
-%start declaration
+%start program
 
 %token <num> NUMBER
 %token IDENTIFIER
@@ -77,7 +77,12 @@ int yylex(void);
 
 
 %%
-/*Grammar Rules*/
+/*  Grammar Rules */
+/* (In the order they appear on the syntaxt diagram, https://www.cs.ucr.edu/~dtan004/proj2/syntax.html */
+program:	function program {printf("program -> function program \n");}
+		| {printf("program -> Empty \n");} /* EMPTY ONE */
+;
+
 declaration: 	identifiers COLON INTEGER {printf("declaration -> identifiers COLON INTEGER \n");}
 		| identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER
 		{printf("declaration -> identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER \n");}
@@ -87,6 +92,18 @@ identifiers:	ident COMMA identifiers {printf("identifiers -> ident COMMA identif
 ;
 ident:		IDENTIFIER {printf("ident -> IDENT %s\n", $1);}
 ;
+
+function:	FUNCTION IDENTIFIER SEMICOLON BEGIN_PARAMS parameters {printf("function -> FUNCTION IDENTIFIER SEMICOLON BEGIN_PARAMS parameters \n");}
+;
+parameters: 	declaration SEMICOLON parameters {printf("parameters -> declaration SEMICOLON parameters \n");}
+		| END_PARAMS BEGIN_LOCALS locals {printf("parameters -> END_LOCALS BEGIN_LOCALS locals \n");}
+;
+locals:		declaration SEMICOLON locals {printf("locals -> declaration SEMICOLON locals \n");}
+                | END_LOCALS BEGIN_BODY bstatements {printf("locals -> END_LOCALS BEGIN_BODY bstatements \n");}
+;
+bstatements:	statement SEMICOLON bstatements {printf("bstatements -> statement SEMICOLON bstatements \n");}
+		| statement SEMICOLON END_BODY {printf("bstatements -> statement SEMICOLON END_BODY \n");}
+
 statement1:	var ASSIGN expression {printf("statement1 -> var ASSIGN expression \n");}
 ;
 statement2:	IF bool_expr THEN statement_loop {printf("statement2 -> IF bool_expr THEN statement_loop \n");}
