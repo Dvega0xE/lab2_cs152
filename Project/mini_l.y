@@ -103,6 +103,7 @@ locals:		declaration SEMICOLON locals {printf("locals -> declaration SEMICOLON l
 ;
 bstatements:	statement SEMICOLON bstatements {printf("bstatements -> statement SEMICOLON bstatements \n");}
 		| statement SEMICOLON END_BODY {printf("bstatements -> statement SEMICOLON END_BODY \n");}
+;
 
 statement1:	var ASSIGN expression {printf("statement1 -> var ASSIGN expression \n");}
 ;
@@ -172,10 +173,12 @@ expression:	mult_expr ADD mult_expr {printf("expression -> mult_expr ADD mult_ex
 		| SUB mult_expr {printf("expression -> SUB mult_expr \n");}
 		| {printf("expression -> epsilon \n");} /*epsilon*/
 ;
-mult_expr:	term MULT term {printf("mult_expr -> term MULT term \n");}
-		| DIV term {printf("mult_expr -> DIV term \n");}
-		| MOD term {printf("mult_expr -> MOD term \n");}
-		| {printf("mult_expr -> epsilon \n");} /*epsilon*/
+mult_expr:	term mult_expr1 {printf("mult_expr -> term mult_expr1\n");}
+;
+mult_expr1:	MULT term {printf("mult_expr1 -> MULT term \n");}
+		| DIV term {printf("mult_expr1 -> DIV term \n");}
+		| MOD term {printf("mult_expr1 -> MOD term \n");}
+		| {printf("mult_expr1 -> epsilon \n");} /*epsilon*/
 ;
 term:	SUB term1 {printf("term -> SUB term1 \n");}
 	| term1 {printf("term -> term1 \n");}
@@ -185,9 +188,10 @@ term1:	var {printf("term1 -> var \n");}
 	| NUMBER {printf("term1 -> NUMBER \n");}
 	| L_PAREN expression R_PAREN {printf("term1 -> L_PAREN expression R_PAREN \n");}
 ;
-term2:	IDENTIFIER L_PAREN expression expression_loop R_PAREN {printf("term2 -> IDENTIFIER L_PAREN expression expression_loop R_PAREN \n");}
+term2:	IDENTIFIER L_PAREN expression_loop R_PAREN {printf("term2 -> IDENTIFIER L_PAREN expression_loop R_PAREN \n");}
 ;
-expression_loop:	COMMA expression {printf("expression_loop -> COMMA expression \n");}
+expression_loop:	expression {printf("expression_loop -> expression \n")}
+			| expression_loop COMMA expression {printf("expression_loop -> expression_loop COMMA expression \n");}
 			| {printf("expression_loop -> epsilon \n");} /*epsilon*/
 ;
 var:	IDENTIFIER {printf("var -> IDENTIFIER \n");}
