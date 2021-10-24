@@ -149,11 +149,18 @@ statement:	statement1 {printf("statement -> statement1 \n");}
 		| statement7 {printf("statement -> statement7 \n");}
 		| statement8 {printf("statement -> statement8 \n");}
 ;
-bool_expr:	relation_and_expr OR relation_and_expr {printf("bool_expr -> relation_and_expr OR relation_and_expr \n");}
-		| relation_and_expr {printf("bool_expr -> relation_and_expr \n");}
+bool_expr:	relation_and_expr {printf("bool_expr -> relation_and_expr \n");}
+		| relation_and_expr OR bool_expr_loop {printf("bool_expr -> relation_and_expr OR bool_expr_loop \n");}
 ;
-relation_and_expr:	relation_expr AND relation_expr {printf("relation_and_expr -> relation_expr AND relation_expr \n");}
-			| relation_expr {printf("relation_and_expr -> relation_expr \n");}
+bool_expr_loop:	relation_and_expr {printf("bool_expr_loop -> relation_and_expr \n");}
+		| relation_and_expr OR bool_expr_loop {printf("bool_expr_loop -> relation_and_expr OR bool_expr_loop \n");}
+;
+
+relation_and_expr:	relation_expr {printf("relation_and_expr -> relation_expr \n");}
+			| relation_expr AND relation_expr_loop {printf("relation_and_expr -> relation_expr AND relation_expr_loop \n");}
+;
+relation_expr_loop:	relation_expr {printf("relation_expr_loop -> relation_expr \n");}
+                        | relation_expr AND relation_expr_loop {printf("relation_expr_loop -> relation_expr AND relation_expr_loop \n");}
 ;
 relation_expr:	NOT relation_exprS {printf("relation_expr -> NOT relation_exprS \n");}
 		| relation_exprS {printf("relation_expr -> relation_exprS \n");}
@@ -170,17 +177,16 @@ comp:	EQ {printf("comp -> EQ \n");}
 	| LTE {printf("comp -> LTE \n");}
 	| GTE {printf("comp -> GTE \n");}
 ;
-expression:	mult_expr ADD mult_expr {printf("expression -> mult_expr ADD mult_expr \n");}
-		| mult_expr SUB mult_expr {printf("expression -> SUB mult_expr \n");}
+expression:	mult_expr ADD expression {printf("expression -> mult_expr ADD expression \n");}
+		| mult_expr SUB expression {printf("expression -> mult_expr SUB expression \n");}
 		| mult_expr {printf("expression -> mult_expr \n");}
 ;
-mult_expr:	term mult_expr1 {printf("mult_expr -> term mult_expr1\n");}
+mult_expr:	term MULT mult_expr {printf("mult_expr -> term MULT mult_expr \n");}
+		| term DIV mult_expr {printf("mult_expr -> term DIV mult_expr \n");}
+		| term MOD mult_expr {printf("mult_expr -> term MOD mult_expr \n");}
+		| term {printf("mult_expr -> term");}
 ;
-mult_expr1:	MULT term {printf("mult_expr1 -> MULT term \n");}
-		| DIV term {printf("mult_expr1 -> DIV term \n");}
-		| MOD term {printf("mult_expr1 -> MOD term \n");}
-		| {printf("mult_expr1 -> epsilon \n");} /*epsilon*/
-;
+
 term:	SUB term1 {printf("term -> SUB term1 \n");}
 	| term1 {printf("term -> term1 \n");}
 	| term2 {printf("term -> term2 \n");}
