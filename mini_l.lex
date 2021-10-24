@@ -13,59 +13,59 @@ COMMENTS	[##].*
 
 
 %%
-"function"	{printf("FUNCTION\n"); currentColumn += yyleng;} /* Reserved Words */
-"beginparams" 	{printf("BEGIN_PARAMS\n"); currentColumn += yyleng;}
-"endparams"     {printf("END_PARAMS\n"); currentColumn += yyleng;}
-"beginlocals" 	{printf("BEGIN_LOCALS\n"); currentColumn += yyleng;}
-"endlocals"     {printf("END_LOCALS\n"); currentColumn += yyleng;}
-"beginbody"     {printf("BEGIN_BODY\n"); currentColumn += yyleng;}
-"endbody"     	{printf("END_BODY\n"); currentColumn += yyleng;}
-"integer"   	{printf("INTEGER\n"); currentColumn += yyleng;}
-"read"     	{printf("READ\n"); currentColumn += yyleng;}
-"write"     	{printf("WRITE\n"); currentColumn += yyleng;}
-"array"	    	{printf("ARRAY\n"); currentColumn += yyleng;}
-"of"		{printf("OF\n"); currentColumn += yyleng;}
-"if"		{printf("IF\n"); currentColumn += yyleng;}
-"then"		{printf("THEN\n"); currentColumn += yyleng;}
-"endif"		{printf("ENDIF\n"); currentColumn += yyleng;}
-"else"		{printf("ELSE\n"); currentColumn += yyleng;}
-"while"		{printf("WHILE\n"); currentColumn += yyleng;}
-"do"		{printf("DO\n"); currentColumn += yyleng;}
-"beginloop"	{printf("BEGINLOOP\n"); currentColumn += yyleng;}
-"endloop"	{printf("ENDLOOP\n"); currentColumn += yyleng;}
-"continue"	{printf("CONTINUE\n"); currentColumn += yyleng;}
-"and"		{printf("AND\n"); currentColumn += yyleng;}
-"or"		{printf("OR\n"); currentColumn += yyleng;}
-"not"		{printf("NOT\n"); currentColumn += yyleng;}
-"true"		{printf("TRUE\n"); currentColumn += yyleng;}
-"false"		{printf("FALSE\n"); currentColumn += yyleng;}
-"return"	{printf("RETURN\n"); currentColumn += yyleng;}
+"function"	{currentColumn += yyleng;} /* Reserved Words */
+"beginparams" 	{currentColumn += yyleng;}
+"endparams"     {currentColumn += yyleng;}
+"beginlocals" 	{currentColumn += yyleng;}
+"endlocals"     {currentColumn += yyleng;}
+"beginbody"     {currentColumn += yyleng;}
+"endbody"     	{currentColumn += yyleng;}
+"integer"   	{currentColumn += yyleng;}
+"read"     	{currentColumn += yyleng;}
+"write"     	{currentColumn += yyleng;}
+"array"	    	{currentColumn += yyleng;}
+"of"		{currentColumn += yyleng;}
+"if"		{currentColumn += yyleng;}
+"then"		{currentColumn += yyleng;}
+"endif"		{currentColumn += yyleng;}
+"else"		{currentColumn += yyleng;}
+"while"		{currentColumn += yyleng;}
+"do"		{currentColumn += yyleng;}
+"beginloop"	{currentColumn += yyleng;}
+"endloop"	{currentColumn += yyleng;}
+"continue"	{currentColumn += yyleng;}
+"and"		{currentColumn += yyleng;}
+"or"		{currentColumn += yyleng;}
+"not"		{currentColumn += yyleng;}
+"true"		{currentColumn += yyleng;}
+"false"		{currentColumn += yyleng;}
+"return"	{currentColumn += yyleng;}
 
-"-"     {printf("SUB\n"); currentColumn += yyleng;} /* Arithmetic Operators */
-"+"     {printf("ADD\n"); currentColumn += yyleng;}
-"*"     {printf("MULT\n"); currentColumn += yyleng;}
-"/"     {printf("DIV\n"); currentColumn += yyleng;}
-"%"     {printf("MOD\n"); currentColumn += yyleng;}
+"-"     {currentColumn += yyleng;} /* Arithmetic Operators */
+"+"     {currentColumn += yyleng;}
+"*"     {currentColumn += yyleng;}
+"/"     {currentColumn += yyleng;}
+"%"     {currentColumn += yyleng;}
 
-"=="	{printf("EQ\n"); currentColumn += yyleng;} /* Comparison Operators */
-"<"	{printf("LT\n"); currentColumn += yyleng;}
-">"	{printf("GT\n"); currentColumn += yyleng;}
-"<="	{printf("LTE\n"); currentColumn += yyleng;}
-">="	{printf("GTE\n"); currentColumn += yyleng;}
-"<>"	{printf("NEQ\n"); currentColumn += yyleng;}
+"=="	{currentColumn += yyleng;} /* Comparison Operators */
+"<"	{currentColumn += yyleng;}
+">"	{currentColumn += yyleng;}
+"<="	{currentColumn += yyleng;}
+">="	{currentColumn += yyleng;}
+"<>"	{currentColumn += yyleng;}
 
-";"     {printf("SEMICOLON\n"); currentColumn += yyleng;} /* Other Special Symbols */
-":"     {printf("COLON\n"); currentColumn += yyleng;}
-"("     {printf("L_PAREN\n"); currentColumn += yyleng;}
-")"     {printf("R_PAREN\n"); currentColumn += yyleng;}
-":="   	{printf("ASSIGN\n"); currentColumn += yyleng;}
-","	{printf("COMMA\n"); currentColumn += yyleng;}
-"["	{printf("L_SQUARE_BRACKET\n"); currentColumn += yyleng;}
-"]"	{printf("R_SQUARE_BRACKET\n"); currentColumn += yyleng;}
+";"     {currentColumn += yyleng;} /* Other Special Symbols */
+":"     {currentColumn += yyleng;}
+"("     {currentColumn += yyleng;}
+")"     {currentColumn += yyleng;}
+":="   	{currentColumn += yyleng;}
+","	{currentColumn += yyleng;}
+"["	{currentColumn += yyleng;}
+"]"	{currentColumn += yyleng;}
 
-[a-zA-Z]({ALPHANUM}|_+{ALPHANUM})*		{printf("IDENT %s\n", yytext); currentColumn += yyleng;} /* Identifiers */
+[a-zA-Z]({ALPHANUM}|_+{ALPHANUM})*		{currentColumn += yyleng;} /* Identifiers */
 
-{DIGIT}+        {printf("NUMBER %s\n", yytext); currentColumn += yyleng;} /* Numbers */
+{DIGIT}+        {currentColumn += yyleng;} /* Numbers */
 
 {WHITESPACE}+ 	{currentColumn += yyleng;} /* WHITESPACE */
 {WHITESPACENL}+ {currentColumn = 0; currentLine += 1;} /* WHITESPACENL */
