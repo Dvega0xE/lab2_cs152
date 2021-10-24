@@ -16,12 +16,12 @@ COMMENTS	[##].*
 
 %%
 "function"	    {yylval.aString = new std::string(yytext); return FUNCTION; currentColumn += yyleng;} /* Reserved Words */
-"beginparams" 	{yylval.aString = new std::string(yytext); return BEGINPARAMS; currentColumn += yyleng;}
-"endparams"     {yylval.aString = new std::string(yytext); return ENDPARAMS; currentColumn += yyleng;}
-"beginlocals" 	{yylval.aString = new std::string(yytext); return BEGINLOCALS; currentColumn += yyleng;}
-"endlocals"     {yylval.aString = new std::string(yytext); return ENDLOCALS; currentColumn += yyleng;}
-"beginbody"     {yylval.aString = new std::string(yytext); return BEGINBODY; currentColumn += yyleng;}
-"endbody"     	{yylval.aString = new std::string(yytext); return ENDBODY; currentColumn += yyleng;}
+"beginparams" 	{yylval.aString = new std::string(yytext); return BEGIN_PARAMS; currentColumn += yyleng;}
+"endparams"     {yylval.aString = new std::string(yytext); return END_PARAMS; currentColumn += yyleng;}
+"beginlocals" 	{yylval.aString = new std::string(yytext); return BEGIN_LOCALS; currentColumn += yyleng;}
+"endlocals"     {yylval.aString = new std::string(yytext); return END_LOCALS; currentColumn += yyleng;}
+"beginbody"     {yylval.aString = new std::string(yytext); return BEGIN_BODY; currentColumn += yyleng;}
+"endbody"     	{yylval.aString = new std::string(yytext); return END_BODY; currentColumn += yyleng;}
 "integer"   	{yylval.aString = new std::string(yytext); return INTEGER; currentColumn += yyleng;}
 "read"     	    {yylval.aString = new std::string(yytext); return READ; currentColumn += yyleng;}
 "write"     	{yylval.aString = new std::string(yytext); return WRITE; currentColumn += yyleng;}
