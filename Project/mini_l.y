@@ -73,8 +73,6 @@ int yylex(void);
 %token L_SQUARE_BRACKET
 %token R_SQUARE_BRACKET
 
-/* Types */
-
 
 %%
 /*  Grammar Rules */
@@ -192,7 +190,7 @@ term:	SUB term1 {printf("term -> SUB term1 \n");}
 	| term2 {printf("term -> term2 \n");}
 ;
 term1:	var {printf("term1 -> var \n");}
-	| NUMBER {printf("term1 -> NUMBER \n");}
+	| NUMBER {printf("term1 -> NUMBER %d \n", $1);}
 	| L_PAREN expression R_PAREN {printf("term1 -> L_PAREN expression R_PAREN \n");}
 ;
 term2:	IDENTIFIER L_PAREN expression_loop R_PAREN {printf("term2 -> IDENTIFIER L_PAREN expression_loop R_PAREN \n");}
@@ -200,7 +198,7 @@ term2:	IDENTIFIER L_PAREN expression_loop R_PAREN {printf("term2 -> IDENTIFIER L
 expression_loop:	expression {printf("expression_loop -> expression \n");}
 			| expression COMMA expression_loop {printf("expression_loop -> expression COMMA expression_loop \n");}
 ;
-var:	IDENTIFIER {printf("var -> IDENTIFIER \n");}
+var:	IDENTIFIER {printf("var -> IDENT %s \n", $1);}
 	| IDENTIFIER L_SQUARE_BRACKET expression R_SQUARE_BRACKET {printf("var -> IDENTIFIER L_SQUARE_BRACKET expression R_SQUARE_BRACKET \n");}
 ;
 
