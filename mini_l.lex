@@ -1,4 +1,6 @@
 %{
+    #inlcude <string>
+    #include "y.tab.c"
     int currentLine = 1;        /* Setup Line and Depth tracking variables */
     int currentColumn = 0;
 %}
