@@ -68,10 +68,97 @@ void yyerror(const char* s);
 %token L_SQUARE_BRACKET
 %token R_SQUARE_BRACKET
 
-%% /*Grammar Rules*/
+%%
+/*Grammar Rules*/
+program:	function program {} 
+		| /*epsilon*/ {}
+;
 
+function:	FUNCTION IDENTIFIER SEMICOLON BEGIN_PARAMS declaration_loop END_PARAMS BEGIN_LOCALS declaration_loop END_LOCALS BEGIN_BODY statement_loop END_BODY {
 
-%% 
+}
+;
+
+declaration_loop: 	declaration SEMICOLON declaration_loop {}
+			| /*epsilon*/ {}
+;
+
+statement_loop: 	statement SEMICOLON statement_loop {}
+			| /*epsilon*/ {}
+;
+
+declaration: 	identifier_loop COLON ARRAY L_PAREN NUMBER R_PAREN OF INTEGER {}
+		| INTEGER {}
+;
+
+identifier_loop:	COMMA identifier_loop {}
+			| COLON {}
+;
+
+statement1: 	var ASSIGN expression {}
+;
+
+statement2: 
+;
+
+statement3:
+;
+
+statement4: 
+;
+
+statement5: 
+;
+
+statement6: 
+;
+
+statement7: 
+;
+
+statement8: 
+;
+
+statement: 
+;
+
+bool_expr: 
+;
+
+relation_and_expr: 
+;
+
+relation_expr: 
+;
+
+relation_exprS: 
+;
+
+comp: 
+;
+
+expression: 
+;
+
+multiplicative_expr: 
+;
+
+term: 
+;
+
+term1: 
+;
+
+term2: 
+;
+
+expression_loop: 
+;
+
+var: 
+;
+
+%%
 /*Addtional Code*/
 void yyerror(const char* s){
 	extern int currentLine;
