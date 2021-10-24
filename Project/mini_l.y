@@ -2,9 +2,12 @@
 %{
 #include "includes.h"
 #include <stdlib.h>
+#define YYSTYPE string
 void yyerror(const char* s);
 int yylex(void);
+string productionString;
 %}
+
 
 /*Bison Declarations*/
 %union{
@@ -15,8 +18,8 @@ int yylex(void);
 %error-verbose
 %start declaration
 
-%token <num> NUMBER
-%token <ident> IDENTIFIER
+%token <int_val> NUMBER
+%token <string> IDENTIFIER
 
 %token FUNCTION
 %token BEGIN_PARAMS
@@ -68,16 +71,21 @@ int yylex(void);
 %token L_SQUARE_BRACKET
 %token R_SQUARE_BRACKET
 
+/* Types */
+%type <string> ident
+
 %%
 /*Grammar Rules*/
-declaration: 	IDENTIFIER declaration2 {printf("declaration -> IDENTIFIER $1 declaration2 -> ");}
+declaration: 	identifiers COLON INTEGER {printf("declaration -> identifiers COLON INTEGER \n");}
+		| identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER
+		{printf("declaration -> identifiers COLON ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER \n");}
 ;
-declaration2: 	COMMA declaration {printf("COMMA ");}
-		| declaration3 {printf("declaration3 -> ");}
+identifiers:	ident COMMA identifiers {printf("identifiers -> ident COMMA identifiers \n");}
+		| ident {printf("identifiers -> ident\n");}
 ;
-declaration3: 	ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER \n");}
-		| INTEGER {printf("INTEGER \n");}
+ident:		IDENTIFIER {printf("ident -> IDENT \n");}
 ;
+
 
 %%
 /*Addtional Code*/
