@@ -1,5 +1,3 @@
-<<<<<<< HEAD
-=======
 /*C Declarations*/
 %{
 #include "includes.h"
@@ -132,10 +130,11 @@ statement_loop4: statement SEMICOLON statement_loop4 {printf("statement_loop4 ->
 ;
 statement5:	READ var_loop {printf("statement5 -> READ var_loop \n");}
 ;
-var_loop:	COMMA var var_loop {printf("var_loop -> COMMA var var_loop \n");}
-		| {printf("var_loop -> epsilon \n");} /*epsilon*/
+var_loop:	var COMMA var_loop {printf("var_loop -> var COMMA var_loop \n");}
+		| var COMMA {printf("var_loop -> var COMMA \n");}
+		| var {printf("var_loop -> var \n");}
 ;
-statement6:	WRITE var_loop {printf("statement6 -> WRITE var_loop \n");} 
+statement6:	WRITE var_loop {printf("statement6 -> WRITE var_loop \n");}
 ;
 statement7:	CONTINUE {printf("statement7 -> CONTINUE \n");}
 ;
@@ -172,11 +171,10 @@ comp:	EQ {printf("comp -> EQ \n");}
 	| GTE {printf("comp -> GTE \n");}
 ;
 expression:	mult_expr ADD mult_expr {printf("expression -> mult_expr ADD mult_expr \n");}
-		| SUB mult_expr {printf("expression -> SUB mult_expr \n");}
-		| {printf("expression -> epsilon \n");} /*epsilon*/
+		| mult_expr SUB mult_expr {printf("expression -> SUB mult_expr \n");}
+		| mult_expr {printf("expression -> mult_expr \n");}
 ;
-mult_expr:	term {printf("mult_expr -> term\n");}
-		| mult_expr1 {printf("mult_expr -> term mult_expr1\n");}
+mult_expr:	term mult_expr1 {printf("mult_expr -> term mult_expr1\n");}
 ;
 mult_expr1:	MULT term {printf("mult_expr1 -> MULT term \n");}
 		| DIV term {printf("mult_expr1 -> DIV term \n");}
@@ -193,9 +191,8 @@ term1:	var {printf("term1 -> var \n");}
 ;
 term2:	IDENTIFIER L_PAREN expression_loop R_PAREN {printf("term2 -> IDENTIFIER L_PAREN expression_loop R_PAREN \n");}
 ;
-expression_loop:	expression {printf("expression_loop -> expression \n")}
-			| expression_loop COMMA expression {printf("expression_loop -> expression_loop COMMA expression \n");}
-			| {printf("expression_loop -> epsilon \n");} /*epsilon*/
+expression_loop:	expression {printf("expression_loop -> expression \n");}
+			| expression COMMA expression_loop {printf("expression_loop -> expression COMMA expression_loop \n");}
 ;
 var:	IDENTIFIER {printf("var -> IDENTIFIER \n");}
 	| IDENTIFIER L_SQUARE_BRACKET expression R_SQUARE_BRACKET {printf("var -> IDENTIFIER L_SQUARE_BRACKET expression R_SQUARE_BRACKET \n");}
@@ -209,4 +206,3 @@ void yyerror(const char* s){
 	printf("ERROR: %s at symbol \"%s\" on line %d\n", s, yytext, currentLine);
 	exit(1);
 }
->>>>>>> b83831c877b6d04bc0ef0d853c65e9f4155dd5fe
