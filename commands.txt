@@ -1,3 +1,6 @@
 bison -v -d --file-prefix=y mini_l.y     - Will create the parser in a file called y.tab.c, y.tab.h and output y.output
 flex mini_l.lex                          - Will create the lexical analyzer in lex.yy.c
 gcc -o parser y.tab.c lex.yy.c -lfl      - Builds the parser.
+
+flex mini_l.lex && bison -v -d --file-prefix=y mini_l.y
+gcc -o parser y.tab.c lex.yy.c -lfl

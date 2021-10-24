@@ -1,4 +1,5 @@
 %{
+
     int currentLine = 1;        /* Setup Line and Depth tracking variables */
     int currentColumn = 0;
 %}
@@ -20,26 +21,26 @@ COMMENTS	[##].*
 "endlocals"     {currentColumn += yyleng;}
 "beginbody"     {currentColumn += yyleng;}
 "endbody"     	{currentColumn += yyleng;}
-"integer"   	{currentColumn += yyleng;}
-"read"     	{currentColumn += yyleng;}
+"integer"   	{yylval.res_val = new std::string(yytext); return INTEGER; currentColumn += yyleng;}
+"read"     	    {currentColumn += yyleng;}
 "write"     	{currentColumn += yyleng;}
-"array"	    	{currentColumn += yyleng;}
-"of"		{currentColumn += yyleng;}
-"if"		{currentColumn += yyleng;}
-"then"		{currentColumn += yyleng;}
-"endif"		{currentColumn += yyleng;}
-"else"		{currentColumn += yyleng;}
-"while"		{currentColumn += yyleng;}
-"do"		{currentColumn += yyleng;}
-"beginloop"	{currentColumn += yyleng;}
-"endloop"	{currentColumn += yyleng;}
-"continue"	{currentColumn += yyleng;}
-"and"		{currentColumn += yyleng;}
-"or"		{currentColumn += yyleng;}
-"not"		{currentColumn += yyleng;}
-"true"		{currentColumn += yyleng;}
-"false"		{currentColumn += yyleng;}
-"return"	{currentColumn += yyleng;}
+"array"	    	{yylval.res_val = new std::string(yytext); return ARRAY; currentColumn += yyleng;}
+"of"		    {yylval.res_val = new std::string(yytext); return OF; currentColumn += yyleng;}
+"if"		    {currentColumn += yyleng;}
+"then"		    {currentColumn += yyleng;}
+"endif"		    {currentColumn += yyleng;}
+"else"		    {currentColumn += yyleng;}
+"while"		    {currentColumn += yyleng;}
+"do"		    {currentColumn += yyleng;}
+"beginloop"	    {currentColumn += yyleng;}
+"endloop"	    {currentColumn += yyleng;}
+"continue"	    {currentColumn += yyleng;}
+"and"		    {currentColumn += yyleng;}
+"or"		    {currentColumn += yyleng;}
+"not"		    {currentColumn += yyleng;}
+"true"		    {currentColumn += yyleng;}
+"false"		    {currentColumn += yyleng;}
+"return"	    {currentColumn += yyleng;}
 
 "-"     {currentColumn += yyleng;} /* Arithmetic Operators */
 "+"     {currentColumn += yyleng;}
@@ -48,8 +49,8 @@ COMMENTS	[##].*
 "%"     {currentColumn += yyleng;}
 
 "=="	{currentColumn += yyleng;} /* Comparison Operators */
-"<"	{currentColumn += yyleng;}
-">"	{currentColumn += yyleng;}
+"<"	    {currentColumn += yyleng;}
+">"	    {currentColumn += yyleng;}
 "<="	{currentColumn += yyleng;}
 ">="	{currentColumn += yyleng;}
 "<>"	{currentColumn += yyleng;}
@@ -59,13 +60,13 @@ COMMENTS	[##].*
 "("     {currentColumn += yyleng;}
 ")"     {currentColumn += yyleng;}
 ":="   	{currentColumn += yyleng;}
-","	{currentColumn += yyleng;}
-"["	{currentColumn += yyleng;}
-"]"	{currentColumn += yyleng;}
+","	    {yylval.symbol_val = new std::string(yytext); return COMMA; currentColumn += yyleng;}
+"["	    {yylval.symbol_val = new std::string(yytext); return L_SQUARE_BRACKET; currentColumn += yyleng;}
+"]"	    {yylval.symbol_val = new std::string(yytext); return R_SQUARE_BRACKET; currentColumn += yyleng;}
 
-[a-zA-Z]({ALPHANUM}|_+{ALPHANUM})*		{currentColumn += yyleng;} /* Identifiers */
+[a-zA-Z]({ALPHANUM}|_+{ALPHANUM})*		{yylval.ident_val = new std::string(yytext); return IDENTIFIER; currentColumn += yyleng;} /* Identifiers */
 
-{DIGIT}+        {currentColumn += yyleng;} /* Numbers */
+{DIGIT}+        {yylval.num_val = atoi(yytext); return NUMBER; currentColumn += yyleng;} /* Numbers */
 
 {WHITESPACE}+ 	{currentColumn += yyleng;} /* WHITESPACE */
 {WHITESPACENL}+ {currentColumn = 0; currentLine += 1;} /* WHITESPACENL */
@@ -82,14 +83,3 @@ COMMENTS	[##].*
                     currentLine, currentColumn, yytext); exit(1);}                        /* Catch anything else */
 
 %%
-
-int main(int argc, char ** argv) {
-        // allows for a file or command line arguments
-        if (argc >= 2) {
-            yyin = fopen(argv[1], "r");
-            yylex();
-            fclose(yyin);
-        } else {
-            yylex();
-        }
-}

@@ -2,6 +2,8 @@
 %{
 #include <stdio.h>
 #include <stdlib.h>
+
+
 void yyerror(const char* s);
 
 %}
@@ -86,4 +88,20 @@ void yyerror(const char* s){
 	extern char* yytext;
 	printf("ERROR: %s at symbol \"%s\" on line %d\n", s, yytext, currentLine);
 	exit(1);
+}
+
+// prototype of bison-generated parser function
+int yyparse();
+
+int main(int argc, char **argv)
+{
+  if ((argc > 1) && (freopen(argv[1], "r", stdin) == NULL))
+  {
+    cerr << argv[0] << ": File " << argv[1] << " cannot be opened.\n";
+    exit( 1 );
+  }
+
+  yyparse();
+
+  return 0;
 }
