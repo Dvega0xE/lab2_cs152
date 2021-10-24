@@ -15,52 +15,52 @@ COMMENTS	[##].*
 
 
 %%
-"function"	{currentColumn += yyleng;} /* Reserved Words */
-"beginparams" 	{currentColumn += yyleng;}
-"endparams"     {currentColumn += yyleng;}
-"beginlocals" 	{currentColumn += yyleng;}
-"endlocals"     {currentColumn += yyleng;}
-"beginbody"     {currentColumn += yyleng;}
-"endbody"     	{currentColumn += yyleng;}
+"function"	    {yylval.aString = new std::string(yytext); return FUNCTION; currentColumn += yyleng;} /* Reserved Words */
+"beginparams" 	{yylval.aString = new std::string(yytext); return BEGINPARAMS; currentColumn += yyleng;}
+"endparams"     {yylval.aString = new std::string(yytext); return ENDPARAMS; currentColumn += yyleng;}
+"beginlocals" 	{yylval.aString = new std::string(yytext); return BEGINLOCALS; currentColumn += yyleng;}
+"endlocals"     {yylval.aString = new std::string(yytext); return ENDLOCALS; currentColumn += yyleng;}
+"beginbody"     {yylval.aString = new std::string(yytext); return BEGINBODY; currentColumn += yyleng;}
+"endbody"     	{yylval.aString = new std::string(yytext); return ENDBODY; currentColumn += yyleng;}
 "integer"   	{yylval.aString = new std::string(yytext); return INTEGER; currentColumn += yyleng;}
-"read"     	    {currentColumn += yyleng;}
-"write"     	{currentColumn += yyleng;}
+"read"     	    {yylval.aString = new std::string(yytext); return READ; currentColumn += yyleng;}
+"write"     	{yylval.aString = new std::string(yytext); return WRITE; currentColumn += yyleng;}
 "array"	    	{yylval.aString = new std::string(yytext); return ARRAY; currentColumn += yyleng;}
 "of"		    {yylval.aString = new std::string(yytext); return OF; currentColumn += yyleng;}
-"if"		    {currentColumn += yyleng;}
-"then"		    {currentColumn += yyleng;}
-"endif"		    {currentColumn += yyleng;}
-"else"		    {currentColumn += yyleng;}
-"while"		    {currentColumn += yyleng;}
-"do"		    {currentColumn += yyleng;}
-"beginloop"	    {currentColumn += yyleng;}
-"endloop"	    {currentColumn += yyleng;}
-"continue"	    {currentColumn += yyleng;}
-"and"		    {currentColumn += yyleng;}
-"or"		    {currentColumn += yyleng;}
-"not"		    {currentColumn += yyleng;}
-"true"		    {currentColumn += yyleng;}
-"false"		    {currentColumn += yyleng;}
-"return"	    {currentColumn += yyleng;}
+"if"		    {yylval.aString = new std::string(yytext); return IF; currentColumn += yyleng;}
+"then"		    {yylval.aString = new std::string(yytext); return THEN;currentColumn += yyleng;}
+"endif"		    {yylval.aString = new std::string(yytext); return ENDIF; currentColumn += yyleng;}
+"else"		    {yylval.aString = new std::string(yytext); return ELSE; currentColumn += yyleng;}
+"while"		    {yylval.aString = new std::string(yytext); return WHILE; currentColumn += yyleng;}
+"do"		    {yylval.aString = new std::string(yytext); return DO; currentColumn += yyleng;}
+"beginloop"	    {yylval.aString = new std::string(yytext); return BEGINLOOP; currentColumn += yyleng;}
+"endloop"	    {yylval.aString = new std::string(yytext); return ENDLOOP; currentColumn += yyleng;}
+"continue"	    {yylval.aString = new std::string(yytext); return CONTINUE; currentColumn += yyleng;}
+"and"		    {yylval.aString = new std::string(yytext); return AND; currentColumn += yyleng;}
+"or"		    {yylval.aString = new std::string(yytext); return OR; currentColumn += yyleng;}
+"not"		    {yylval.aString = new std::string(yytext); return NOT; currentColumn += yyleng;}
+"true"		    {yylval.aString = new std::string(yytext); return TRUE; currentColumn += yyleng;}
+"false"		    {yylval.aString = new std::string(yytext); return FALSE; currentColumn += yyleng;}
+"return"	    {yylval.aString = new std::string(yytext); return RETURN; currentColumn += yyleng;}
 
-"-"     {currentColumn += yyleng;} /* Arithmetic Operators */
-"+"     {currentColumn += yyleng;}
-"*"     {currentColumn += yyleng;}
-"/"     {currentColumn += yyleng;}
-"%"     {currentColumn += yyleng;}
+"-"     {yylval.aString = new std::string(yytext); return SUB; currentColumn += yyleng;} /* Arithmetic Operators */
+"+"     {yylval.aString = new std::string(yytext); return ADD; currentColumn += yyleng;}
+"*"     {yylval.aString = new std::string(yytext); return MULT; currentColumn += yyleng;}
+"/"     {yylval.aString = new std::string(yytext); return DIV; currentColumn += yyleng;}
+"%"     {yylval.aString = new std::string(yytext); return MOD; currentColumn += yyleng;}
 
-"=="	{currentColumn += yyleng;} /* Comparison Operators */
-"<"	    {currentColumn += yyleng;}
-">"	    {currentColumn += yyleng;}
-"<="	{currentColumn += yyleng;}
-">="	{currentColumn += yyleng;}
-"<>"	{currentColumn += yyleng;}
+"=="	{yylval.aString = new std::string(yytext); return EQ; currentColumn += yyleng;} /* Comparison Operators */
+"<"	    {yylval.aString = new std::string(yytext); return LT; currentColumn += yyleng;}
+">"	    {yylval.aString = new std::string(yytext); return GT; currentColumn += yyleng;}
+"<="	{yylval.aString = new std::string(yytext); return LTE; currentColumn += yyleng;}
+">="	{yylval.aString = new std::string(yytext); return GTE; currentColumn += yyleng;}
+"<>"	{yylval.aString = new std::string(yytext); return NEQ; currentColumn += yyleng;}
 
-";"     {currentColumn += yyleng;} /* Other Special Symbols */
-":"     {currentColumn += yyleng;}
-"("     {currentColumn += yyleng;}
-")"     {currentColumn += yyleng;}
-":="   	{currentColumn += yyleng;}
+";"     {yylval.aString = new std::string(yytext); return SEMICOLON; currentColumn += yyleng;} /* Other Special Symbols */
+":"     {yylval.aString = new std::string(yytext); return COLON; currentColumn += yyleng;}
+"("     {yylval.aString = new std::string(yytext); return L_PAREN; currentColumn += yyleng;}
+")"     {yylval.aString = new std::string(yytext); return R_PAREN; currentColumn += yyleng;}
+":="   	{yylval.aString = new std::string(yytext); return ASSIGN; currentColumn += yyleng;}
 ","	    {yylval.aString = new std::string(yytext); return COMMA; currentColumn += yyleng;}
 "["	    {yylval.aString = new std::string(yytext); return L_SQUARE_BRACKET; currentColumn += yyleng;}
 "]"	    {yylval.aString = new std::string(yytext); return R_SQUARE_BRACKET; currentColumn += yyleng;}
