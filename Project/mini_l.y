@@ -189,9 +189,10 @@ term1:	var {printf("term1 -> var \n");}
 	| NUMBER {printf("term1 -> NUMBER \n");}
 	| L_PAREN expression R_PAREN {printf("term1 -> L_PAREN expression R_PAREN \n");}
 ;
-term2:	IDENTIFIER L_PAREN expression expression_loop R_PAREN {printf("term2 -> IDENTIFIER L_PAREN expression expression_loop R_PAREN \n");}
+term2:	IDENTIFIER L_PAREN expression_loop R_PAREN {printf("term2 -> IDENTIFIER L_PAREN expression_loop R_PAREN \n");}
 ;
-expression_loop:	COMMA expression {printf("expression_loop -> COMMA expression \n");}
+expression_loop:	expression {printf("expression_loop -> expression \n")}
+			| expression_loop COMMA expression {printf("expression_loop -> expression_loop COMMA expression \n");}
 			| {printf("expression_loop -> epsilon \n");} /*epsilon*/
 ;
 var:	IDENTIFIER {printf("var -> IDENTIFIER \n");}
