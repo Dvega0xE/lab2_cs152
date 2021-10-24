@@ -65,7 +65,7 @@ COMMENTS	[##].*
 "["	    {yylval.aString = new std::string(yytext); return L_SQUARE_BRACKET; currentColumn += yyleng;}
 "]"	    {yylval.aString = new std::string(yytext); return R_SQUARE_BRACKET; currentColumn += yyleng;}
 
-[a-zA-Z]({ALPHANUM}|_+{ALPHANUM})*		{yylval.aString = new std::string(yytext); return IDENTIFIER; currentColumn += yyleng;} /* Identifiers */
+[a-zA-Z]({ALPHANUM}|_+{ALPHANUM})*		{yylval.stringValue = strdup(yytext); return IDENTIFIER; currentColumn += yyleng;} /* Identifiers */
 
 {DIGIT}+        {yylval.num = atoi(yytext); return NUMBER; currentColumn += yyleng;} /* Numbers */
 

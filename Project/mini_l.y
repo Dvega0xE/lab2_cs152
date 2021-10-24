@@ -5,21 +5,21 @@
 #define YYSTYPE string
 void yyerror(const char* s);
 int yylex(void);
-string productionString;
+
 %}
 
 
 /*Bison Declarations*/
 %union{
 	int num;
-	string* aString;
+	char *stringValue;
 }
 
 %error-verbose
 %start declaration
 
 %token <int_val> NUMBER
-%token <string> IDENTIFIER
+%token IDENTIFIER
 
 %token FUNCTION
 %token BEGIN_PARAMS
@@ -72,7 +72,6 @@ string productionString;
 %token R_SQUARE_BRACKET
 
 /* Types */
-%type <string> ident
 
 %%
 /*Grammar Rules*/
@@ -83,7 +82,7 @@ declaration: 	identifiers COLON INTEGER {printf("declaration -> identifiers COLO
 identifiers:	ident COMMA identifiers {printf("identifiers -> ident COMMA identifiers \n");}
 		| ident {printf("identifiers -> ident\n");}
 ;
-ident:		IDENTIFIER {printf("ident -> IDENT \n");}
+ident:		IDENTIFIER {$$; printf("ident -> IDENT \n");}
 ;
 
 
