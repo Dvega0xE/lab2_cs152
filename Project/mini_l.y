@@ -174,7 +174,8 @@ expression:	mult_expr ADD mult_expr {printf("expression -> mult_expr ADD mult_ex
 		| SUB mult_expr {printf("expression -> SUB mult_expr \n");}
 		| {printf("expression -> epsilon \n");} /*epsilon*/
 ;
-mult_expr:	term mult_expr1 {printf("mult_expr -> term mult_expr1\n");}
+mult_expr:	term {printf("mult_expr -> term\n");}
+		| mult_expr1 {printf("mult_expr -> term mult_expr1\n");}
 ;
 mult_expr1:	MULT term {printf("mult_expr1 -> MULT term \n");}
 		| DIV term {printf("mult_expr1 -> DIV term \n");}
