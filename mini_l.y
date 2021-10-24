@@ -13,7 +13,7 @@ void yyerror(const char* s);
 }
 
 %error-verbose
-%start program
+%start declaration
 
 %token <num> NUMBER
 %token <ident> IDENTIFIER
@@ -70,92 +70,13 @@ void yyerror(const char* s);
 
 %%
 /*Grammar Rules*/
-program:	function program {} 
-		| /*epsilon*/ {}
+declaration: 	IDENTIFIER declaration2 {printf("declaration -> IDENTIFIER $1 declaration2 -> ");}
 ;
-
-function:	FUNCTION IDENTIFIER SEMICOLON BEGIN_PARAMS declaration_loop END_PARAMS BEGIN_LOCALS declaration_loop END_LOCALS BEGIN_BODY statement_loop END_BODY {
-
-}
+declaration2: 	COMMA declaration {printf("COMMA ");}
+		| declaration3 {printf("declaration3 -> ");}
 ;
-
-declaration_loop: 	declaration SEMICOLON declaration_loop {}
-			| /*epsilon*/ {}
-;
-
-statement_loop: 	statement SEMICOLON statement_loop {}
-			| /*epsilon*/ {}
-;
-
-declaration: 	identifier_loop COLON ARRAY L_PAREN NUMBER R_PAREN OF INTEGER {}
-		| INTEGER {}
-;
-
-identifier_loop:	COMMA identifier_loop {}
-			| COLON {}
-;
-
-statement1: 	var ASSIGN expression {}
-;
-
-statement2: 
-;
-
-statement3:
-;
-
-statement4: 
-;
-
-statement5: 
-;
-
-statement6: 
-;
-
-statement7: 
-;
-
-statement8: 
-;
-
-statement: 
-;
-
-bool_expr: 
-;
-
-relation_and_expr: 
-;
-
-relation_expr: 
-;
-
-relation_exprS: 
-;
-
-comp: 
-;
-
-expression: 
-;
-
-multiplicative_expr: 
-;
-
-term: 
-;
-
-term1: 
-;
-
-term2: 
-;
-
-expression_loop: 
-;
-
-var: 
+declaration3: 	ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER {printf("ARRAY L_SQUARE_BRACKET NUMBER R_SQUARE_BRACKET OF INTEGER \n");}
+		| INTEGER {printf("INTEGER \n");}
 ;
 
 %%
